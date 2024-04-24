@@ -26,33 +26,120 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('category.update', $category) }}" class="w-25" method="POST">
+                    <form action="{{ route('product.update', $product) }}" class="w-75" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
                         <div class="form-group">
                             <input type="text" class="form-control" name="title"
-                                   placeholder="Название категории" value="{{ old('title', $category->title) }}">
+                                   placeholder="Название товара" value="{{ old('title' , $product->title) }}">
                             @error('title')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Выберите родительскую категорию</label>
-                            <select class="form-control" name="parent_id">
-                                <option value="">Родительская категория</option>
-                                @foreach($categories as $item)
-                                    <option
-                                        value="{{ $item->id }}"
-                                        {{ old('parent_id', $category->parent_id) == $item->id ? 'selected' : '' }}>
-                                        {{ $item->title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('parent_id')
+                            <input type="text" class="form-control" name="description"
+                                   placeholder="Описание товара" value="{{ old('description', $product->description) }}">
+                            @error('description')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Редактировать">
+                        <div class="form-group">
+                            <textarea id="summernote" name="content">{{ old('content', $product->content) }}</textarea>
+                            @error('content')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Добавить новое изображение</label>
+                            <div class="w-25 mb-2">
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                            </div>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="image" value="">
+                                    <label class="custom-file-label">Выберите изображение</label>
+                                </div>
+                            </div>
+                            @error('image')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="price"
+                                   placeholder="Цена" value="{{ old('price', $product->price) }}">
+                            @error('price')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="count"
+                                   placeholder="Кол-во товара" value="{{ old('count', $product->count) }}">
+                            @error('count')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите категорию</label>
+                            <select class="form-control" name="category_id">
+                                <option value=""></option>
+                                @foreach($categories as $category)
+                                    <option
+                                        value="{{ $category->id }}"
+                                        @selected(old('category_id', $product->category_id) == $category->id)
+                                    >
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите бренд</label>
+                            <select class="form-control" name="brand_id">
+                                <option value=""></option>
+                                @foreach($brands as $brand)
+                                    <option
+                                        value="{{ $brand->id }}"
+                                        @selected(old('brand_id', $product->brand_id) == $brand->id)>
+                                        {{ $brand->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('brand_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите цвет</label>
+                            @foreach($colors as $color)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                           name="color_ids[]"
+                                           @if(is_array(old('color_ids', $product->colors->pluck('id')->toArray())))
+                                               @checked(in_array($color->id, old('color_ids', $product->colors->pluck('id')->toArray())))
+                                           @endif
+                                           value="{{ $color->id }}">
+                                    <i class="fas fa-square"  style="color:{{ $color->code }}"></i>
+                                </div>
+                            @endforeach
+                            @error('color_ids')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Скрыть продукт</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="disabled"
+                                       @checked(old('disabled', $product->disabled))
+                                       value="{{ $product->disabled }}">
+                                </div>
+                            @error('disabled')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Добавить">
                     </form>
                 </div>
             </div>

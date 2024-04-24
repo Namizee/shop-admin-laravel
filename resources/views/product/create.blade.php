@@ -52,11 +52,11 @@
                             <label>Добавить изображение</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="preview_image">
+                                    <input type="file" class="custom-file-input" name="image">
                                     <label class="custom-file-label">Выберите изображение</label>
                                 </div>
                             </div>
-                            @error('preview_image')
+                            @error('image')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

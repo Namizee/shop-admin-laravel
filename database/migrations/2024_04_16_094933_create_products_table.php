@@ -19,10 +19,16 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('price');
             $table->integer('count');
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('brand_id');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('brand_id');
 
             $table->boolean('disabled')->default(0);
+
+            $table->index('category_id', 'product_category_idx');
+            $table->foreign('category_id', 'product_category_fk')->references('id')->on('categories')->onDelete('cascade');
+
+            $table->index('brand_id', 'product_brand_idx');
+            $table->foreign('brand_id', 'product_brand_fk')->references('id')->on('brands')->onDelete('cascade');
 
             $table->timestamps();
         });

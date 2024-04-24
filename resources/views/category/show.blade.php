@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                     <td>Родительская категория</td>
-                                    <td>{{ $category->childre->title ?? 'Родительская категория'}}</td>
+                                    <td>{{ $category->parent->title ?? 'Родительская категория'}}</td>
                                 </tr>
                                 </tbody>
                             </table>

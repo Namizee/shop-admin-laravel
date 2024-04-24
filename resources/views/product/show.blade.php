@@ -49,11 +49,13 @@
                                 </tr>
                                 <tr>
                                     <td>Полное описание</td>
-                                    <td>{{ $product->content }}</td>
+                                    <td>{!! $product->content !!}</td>
                                 </tr>
                                 <tr>
                                     <td>Картинка</td>
-                                    <td>{{ $product->image }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Цена</td>

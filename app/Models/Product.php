@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $table = 'products';
+    protected $guarded = false;
+
+    public function colors() {
+        return $this->belongsToMany(Color::class);
+    }
 }

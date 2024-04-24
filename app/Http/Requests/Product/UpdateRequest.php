@@ -23,6 +23,16 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
+            'description' => 'required|string',
+            'content' => 'required|string',
+            'image' => 'nullable|file|image',
+            'price' => 'required|regex:/^\d+(\.\d{2})?$/',
+            'count' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
+            'brand_id' => 'required|string|exists:brands,id',
+            'color_ids' => 'nullable|array',
+            'color_ids.*' => 'nullable|integer|exists:brands,id',
+            'disabled' => 'required|boolean'
         ];
     }
 }

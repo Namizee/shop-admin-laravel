@@ -31,7 +31,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -65,6 +65,13 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                       {{ $products->links() }}
                     </div>
                 </div>
             </div>
