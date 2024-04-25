@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'title' => fake()->sentence(3),
             'description' => fake()->text(),
             'content' => fake()->text(400),
-            'image' => fake()->imageUrl(),
+            'image' => 'images/mzVDKMR9f9sOKhLQKHNT8jnJ70iNvKA7FPLwu7cE.jpg',
             'price' => fake()->randomFloat(2,10,999),
             'count' => rand(10, 20),
             'category_id' => Category::get()->random()->id,
